@@ -1,5 +1,5 @@
 ---
-- name: Get minio latest version
+- name: Get MinIO latest version
   when: minio_version == 'latest'
   block:
     - name: Get latest release
@@ -13,11 +13,17 @@
         minio_version: "{{ latest_releases.json.tag_name[8:-1] | regex_replace('(-|T)', '') }}"
 - name: set variables
   ansible.builtin.set_fact:
-    minio_download_directory: "{{ ansible_facts['architecture'] | lower }}-{{ architecture_files[ansible_facts['architecture']] }}"
-    minio_download_file: "minio_{{ minio_version }}_{{ architecture_files[ansible_facts['architecture']] }}.deb"
+    minio_download_directory: "{{ ansible_facts['system'] | lower }}-{{ architecture_files[ansible_facts['architecture']] }}"
+    minio_download_file: minio_{{ minio_version }}.0.0_{{ architecture_files[ansible_facts['architecture']] }}.deb
   vars:
     architecture_files:
       x86_64: amd64
-- name: Install minio packages
+- name: Install MinIO packages
   ansible.builtin.apt:
     deb: https://dl.min.io/server/minio/release/{{ minio_download_directory }}/archive/{{ minio_download_file }}
+  notify: restart minio
+- name: Install the MinIO Client
+  ansible.builtin.get_url:
+    url: https://dl.min.io/client/mc/release/{{ minio_download_directory }}/mc
+    dest: /usr/local/bin/mc
+    mode: "0755"

@@ -1,8 +1,5 @@
 ---
-- name: Install minio dependency packages
-  ansible.builtin.apt:
-    name: "{{ role_dependency_packages }}"
-- name: Add minio user
+- name: Add MinIO user
   ansible.builtin.user:
     name: "{{ minio_user }}"
     system: true

@@ -1,5 +1,5 @@
-MINIO_OPTS=" --address {{ minio_address }} --console-address {{ minio_console_address }}"
-MINIO_VOLUMES="{{ '{' + minio_volumes | join(',') + '}' }}"
+MINIO_OPTS=" --address {{ minio_address_host }}:{{ minio_address_port }} --console-address {{ minio_console_address_host }}:{{ minio_console_address_port }}"
+MINIO_VOLUMES="{{ minio_volumes[0] if minio_volumes | length == 1 else '{' + minio_volumes | join(',') + '}' }}"
 
 MINIO_ROOT_USER="{{ minio_root_user }}"
 MINIO_ROOT_PASSWORD="{{ minio_root_password }}"
