@@ -11,7 +11,7 @@
     - name: Set tbls_version variable
       ansible.builtin.set_fact:
         minio_version: "{{ latest_releases.json.tag_name[8:-1] | regex_replace('(-|T)', '') }}"
-- name: set variables
+- name: Set variables
   ansible.builtin.set_fact:
     minio_download_directory: "{{ ansible_facts['system'] | lower }}-{{ architecture_files[ansible_facts['architecture']] }}"
     minio_download_file: minio_{{ minio_version }}.0.0_{{ architecture_files[ansible_facts['architecture']] }}.deb
