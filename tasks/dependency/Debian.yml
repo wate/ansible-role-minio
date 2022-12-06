@@ -2,3 +2,15 @@
 - name: Install minio dependency packages
   ansible.builtin.apt:
     name: "{{ role_dependency_packages }}"
+- name: Add minio user
+  ansible.builtin.user:
+    name: "{{ minio_user }}"
+    system: true
+- name: Manage volume directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ minio_user }}"
+    group: "{{ minio_user }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ minio_volumes }}"

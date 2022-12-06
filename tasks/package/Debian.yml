@@ -1,4 +1,23 @@
 ---
+- name: Get minio latest version
+  when: minio_version == 'latest'
+  block:
+    - name: Get latest release
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/minio/minio/releases/latest
+        headers:
+          Accept: application/vnd.github+json
+      register: latest_releases
+    - name: Set tbls_version variable
+      ansible.builtin.set_fact:
+        minio_version: "{{ latest_releases.json.tag_name[8:-1] | regex_replace('(-|T)', '') }}"
+- name: set variables
+  ansible.builtin.set_fact:
+    minio_download_directory: "{{ ansible_facts['architecture'] | lower }}-{{ architecture_files[ansible_facts['architecture']] }}"
+    minio_download_file: "minio_{{ minio_version }}_{{ architecture_files[ansible_facts['architecture']] }}.deb"
+  vars:
+    architecture_files:
+      x86_64: amd64
 - name: Install minio packages
   ansible.builtin.apt:
-    name: "{{ role_packages }}"
+    deb: https://dl.min.io/server/minio/release/{{ minio_download_directory }}/archive/{{ minio_download_file }}

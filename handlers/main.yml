@@ -1,9 +1,9 @@
 ---
-# - name: Restart minio
-#   ansible.builtin.systemd:
-#     state: restarted
-#     name: minio
-# - name: Reload minio
-#   ansible.builtin.systemd:
-#     state: reloaded
-#     name: minio
+- name: Restart minio
+  ansible.builtin.systemd:
+    state: restarted
+    name: minio
+- name: Reload minio
+  ansible.builtin.systemd:
+    state: reloaded
+    name: minio
