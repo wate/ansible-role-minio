@@ -9,7 +9,7 @@
     rule: allow
     port: "{{ minio_address_port }}"
   when: not minio_address_host or minio_address_host in ['localhost', '127.0.0.1', '0.0.0.0']
-- name: allow MinIO console port
+- name: Allow MinIO console port
   community.general.ufw:
     rule: allow
     port: "{{ minio_console_address_port }}"
