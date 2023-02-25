@@ -1,7 +1,7 @@
 minio
 =================
 
-Setup minio
+Setup MinIO
 
 OS Platform
 -----------------

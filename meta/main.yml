@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: minio
   author: yoshiaki tanaka
-  description: Setup minio
+  description: Setup MinIO
   license: Apache
   min_ansible_version: "2.13"
   platforms:
