@@ -18,7 +18,7 @@
         url: https://api.github.com/repos/minio/minio/releases/latest
         headers: "{{ github_api_request_headers }}"
       register: latest_releases
-    - name: Set tbls_version variable
+    - name: Set minio_version variable
       ansible.builtin.set_fact:
         minio_version: "{{ latest_releases.json.tag_name[8:-1] | regex_replace('(-|T)', '') }}"
 - name: Set variables
