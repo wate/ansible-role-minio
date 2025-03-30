@@ -1,0 +1,7 @@
+behaviour
+cgroupns
+cpus
+dearmor
+envrc
+mcli
+minioadmin

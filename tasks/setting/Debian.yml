@@ -4,4 +4,4 @@
     src: minio.j2
     dest: "{{ minio_environment_file }}"
     mode: "0644"
-  notify: restart minio
+  notify: Restart minio
