@@ -14,39 +14,51 @@ OS Platform
 Role Variables
 --------------
 
-設定方法の詳細については[defaults/main.yml](defaults/main.yml)のサンプルコードを参照してください。
+### [defaults/main.yml](defaults/main.yml)
 
-### `minio_version`
+設定方法の詳細については[defaults/main.yml](defaults/main.yml)のサンプルコードなどを参照してください。
+
+#### `minio_version`
 
 MinIOのバージョン
 
-### `minio_address_host`
+#### `minio_address_host`
 
 アドレス(ホスト)
 
-### `minio_address_port`
+#### `minio_address_port`
 
 アドレス(ポート)
 
-### `minio_console_address_host`
+#### `minio_console_address_host`
 
 コンソールアドレス(ホスト)
 
-### `minio_console_address_port`
+#### `minio_console_address_port`
 
 コンソールアドレス(ポート)
 
-### `minio_volumes`
+#### `minio_volumes`
 
 データの保存先
 
-### `minio_root_user`
+#### `minio_root_user`
 
 管理ユーザー名
 
-### `minio_root_password`
+#### `minio_root_password`
 
 管理ユーザーパスワード
+
+### [vars/main.yml](vars/main.yml)
+
+設定値については[vars/main.yml](vars/main.yml)を参照してください。
+
+#### `minio_user`
+
+#### `mini_group`
+
+#### `minio_environment_file`
 
 Example Playbook
 --------------

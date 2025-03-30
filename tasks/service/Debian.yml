@@ -1,10 +1,10 @@
 ---
-- name: Service minio srver is active and enabled on system startup
+- name: Service minio is active and enabled on system startup
   ansible.builtin.systemd_service:
     name: minio
     state: started
     enabled: true
-- name: allow MinIO web port
+- name: Allow MinIO web port
   community.general.ufw:
     rule: allow
     port: "{{ minio_address_port }}"

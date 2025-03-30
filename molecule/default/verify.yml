@@ -2,8 +2,34 @@
 - name: Verify
   hosts: all
   gather_facts: false
-  # check_mode: true
+  become: true
   tasks:
-    - name: Example assertion
+    ## テストの前処理
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+    - name: Gather listen ports facts
+      community.general.listen_ports_facts:
+    - name: Set listen port variables
+      ansible.builtin.set_fact:
+        listen_tcp_posts: "{{ ansible_facts.tcp_listen | map(attribute='port') | unique | sort | list }}"
+        listen_udp_posts: "{{ ansible_facts.udp_listen | map(attribute='port') | unique | sort | list }}"
+    - name: Assert package
       ansible.builtin.assert:
-        that: true
+        that:
+          - ansible_facts.packages['minio'] is defined
+          - ansible_facts.packages['mcli'] is defined
+    ## サービスのテスト
+    - name: Assert service
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['minio.service'] is defined
+          - ansible_facts.services['minio.service']['state'] == 'running'
+          - ansible_facts.services['minio.service']['status'] == 'enabled'
+    ## 待受ポートのテスト
+    - name: Assert listen port
+      ansible.builtin.assert:
+        that:
+          - 9000 in listen_tcp_posts
+          - 9001 in listen_tcp_posts
